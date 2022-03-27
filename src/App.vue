@@ -1,14 +1,9 @@
 <template>
-	<header>
-		Github Repo Structure
-		<nav>
-			<RouterLink to="/">Home</RouterLink>
-		</nav>
-	</header>
-
+	<AppHeader />
 	<RouterView />
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+import AppHeader from "@/components/organisms/AppHeader.vue";
 </script>
