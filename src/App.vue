@@ -1,6 +1,9 @@
 <template>
 	<Head>
-		<body class="min-h-screen bg-gray-900 font-body text-gray-300" />
+		<html class="h-full" />
+		<body
+			class="h-full bg-gradient-to-b from-slate-900 via-gray-800 to-gray-900 font-body text-gray-300"
+		/>
 	</Head>
 	<AppHeader />
 	<RouterView />
