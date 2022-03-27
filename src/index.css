@@ -2,15 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-	font-family: "Space Grotesk";
-	font-display: swap;
-	src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
+@layer base {
+	@font-face {
+		font-family: "Space Grotesk";
+		font-display: swap;
+		src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
+	}
+	@font-face {
+		font-family: "IBM Plex Sans";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url("/fonts/IBMPlexSans/IBMPlexSans-Regular.ttf")
+			format("truetype");
+	}
 }
-@font-face {
-	font-family: "IBM Plex Sans";
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/fonts/IBMPlexSans/IBMPlexSans-Regular.ttf") format("truetype");
+
+@layer utilities {
+	.text-shadow-emphasis-primary {
+		text-shadow: 0 2px 0 theme("colors.primary.DEFAULT");
+	}
+	.text-shadow-emphasis-dark {
+		text-shadow: 0 2px 0 theme("colors.primary.darker");
+	}
 }

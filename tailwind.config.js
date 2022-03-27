@@ -6,11 +6,29 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: colors.cyan["700"],
+				primary: {
+					lighter: colors.cyan["400"],
+					light: colors.cyan["500"],
+					DEFAULT: colors.cyan["700"],
+					dark: colors.cyan["800"],
+					darker: colors.cyan["900"],
+				},
 			},
 			fontFamily: {
 				display: ["Space Grotesk", ...defaultTheme.fontFamily.serif],
 				body: ["IBM Plex Sans", ...defaultTheme.fontFamily.sans],
+			},
+			animation: {
+				gradient: "bg-slide 15s ease infinite",
+			},
+			keyframes: {
+				"bg-slide": {
+					"0%, 100%": { backgroundPosition: "0% 50%" },
+					"50%": { backgroundPosition: "100% 50%" },
+				},
+			},
+			backgroundImage: {
+				"topograpy-pattern": "url('/svg/topography-pattern.svg')",
 			},
 		},
 	},
