@@ -1,6 +1,6 @@
 <template>
 	<header
-		class="flex h-16 items-center bg-gray-800 px-2 shadow sm:px-6 lg:px-8"
+		class="flex h-16 items-center bg-gray-900 px-2 shadow sm:px-6 lg:px-8"
 	>
 		<AppBranding />
 		<AppNav />

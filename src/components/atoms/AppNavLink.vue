@@ -5,7 +5,7 @@
 			@click="navigate"
 			:class="[
 				isActive
-					? 'bg-gray-900 text-white'
+					? 'bg-primary-dark text-white'
 					: 'text-gray-300 transition-colors duration-100 ease-out hover:bg-gray-700 hover:text-white',
 				attrs.class,
 			]"
