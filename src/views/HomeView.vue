@@ -1,7 +1,5 @@
 <template>
-	<main
-		class="relative flex w-full grow flex-col items-center bg-topograpy-pattern px-6 pt-8 bg-blend-multiply sm:justify-center sm:pt-0"
-	>
+	<MainWrapper centered>
 		<section>
 			<h1
 				class="text-4xl font-extrabold tracking-tight text-gray-100 sm:text-5xl md:text-6xl"
@@ -26,7 +24,7 @@
 				</template>
 			</AlertUi>
 		</section>
-	</main>
+	</MainWrapper>
 </template>
 
 <script setup lang="ts">
@@ -34,6 +32,7 @@ import { computed, ref, watch } from "vue";
 import { useFetch } from "@vueuse/core";
 import { useRepositoryStore } from "@/stores/repository";
 
+import MainWrapper from "@/components/atoms/MainWrapper.vue";
 import SearchUrlForm from "@/components/molecules/UrlSearchForm.vue";
 import AlertUi from "@/components/AlertUi.vue";
 
