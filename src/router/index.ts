@@ -7,6 +7,11 @@ export const routes = [
 		name: "home",
 		component: HomeView,
 	},
+	{
+		path: "/repos/:owner/:repo",
+		name: "repository",
+		component: () => import("@/views/RepositoryView.vue"),
+	},
 ];
 
 const router = createRouter({

@@ -30,11 +30,12 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useFetch } from "@vueuse/core";
-import { useRepositoryStore } from "@/stores/repository";
+import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
 import SearchUrlForm from "@/components/molecules/UrlSearchForm.vue";
 import AlertUi from "@/components/AlertUi.vue";
+import { useRouter } from "vue-router";
 
 const repositoryStore = useRepositoryStore();
 
@@ -55,7 +56,7 @@ const requestUrl = computed(
 			"api.github.com/repos"
 		)}/contents`
 );
-const { isFetching, error, data, execute } = useFetch(
+const { isFetching, error, data, execute } = useFetch<Array<ContentsItem>>(
 	requestUrl,
 	{
 		headers: {
@@ -77,8 +78,11 @@ watch(data, (newData) => {
 	repositoryStore.setRepositoryContents(newData);
 });
 
+const router = useRouter();
+
 const searchRepository = async (respositoryUrl: string) => {
 	repositoryUrl.value = respositoryUrl;
-	execute();
+	await execute();
+	router.push(`/repos/${repositoryStore.owner}/${repositoryStore.repo}`);
 };
 </script>
