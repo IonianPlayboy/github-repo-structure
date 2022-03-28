@@ -13,14 +13,73 @@
 					repository
 				</span>
 			</h1>
-			<SearchUrlForm @url-submitted="searchRepository($event)" />
+			<SearchUrlForm
+				:loading="isFetching"
+				@url-submitted="searchRepository($event)"
+			/>
+			<AlertUi class="mt-6" type="error" v-if="error">
+				<template #title>
+					An error occured while fetching the repository
+				</template>
+				<template #default>
+					{{ error }}
+				</template>
+			</AlertUi>
 		</section>
 	</main>
 </template>
 
 <script setup lang="ts">
-import SearchUrlForm from "@/components/molecules/UrlSearchForm.vue";
+import { computed, ref, watch } from "vue";
+import { useFetch } from "@vueuse/core";
+import { useRepositoryStore } from "@/stores/repository";
 
-const searchRepository = (respositoryUrl: string) =>
-	console.log("repository url : ", respositoryUrl);
+import SearchUrlForm from "@/components/molecules/UrlSearchForm.vue";
+import AlertUi from "@/components/AlertUi.vue";
+
+const repositoryStore = useRepositoryStore();
+
+const repositoryUrl = ref("");
+
+watch(repositoryUrl, (newValue) => {
+	const [owner, repo] = newValue
+		.replace("https://github.com/", "")
+		.split("/");
+	repositoryStore.setOwner(owner);
+	repositoryStore.setRepositoryName(repo);
+});
+
+const requestUrl = computed(
+	() =>
+		`${repositoryUrl.value.replace(
+			"github.com",
+			"api.github.com/repos"
+		)}/contents`
+);
+const { isFetching, error, data, execute } = useFetch(
+	requestUrl,
+	{
+		headers: {
+			// NOTE: Required to use the GitHub API
+			// https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required
+			"User-Agent": "IonianPlayboy",
+			// NOTE: Strongly recommended to use the GitHub API
+			// https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version
+			Accept: "application/vnd.github.v3+json",
+		},
+	},
+	{
+		immediate: false,
+	}
+).json();
+
+watch(data, (newData) => {
+	if (!newData) return;
+	repositoryStore.setRepositoryContents(newData);
+});
+
+const searchRepository = async (respositoryUrl: string) => {
+	repositoryUrl.value = respositoryUrl;
+	execute();
+};
 </script>
