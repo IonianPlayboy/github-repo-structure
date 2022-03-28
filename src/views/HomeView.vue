@@ -13,34 +13,14 @@
 					repository
 				</span>
 			</h1>
-			<form
-				@submit.prevent="searchRepository()"
-				class="mt-12 sm:mx-auto sm:flex sm:max-w-lg"
-			>
-				<div class="min-w-0 flex-1">
-					<label for="cta-repo" class="sr-only"
-						>Repository link</label
-					>
-					<input
-						id="cta-repo"
-						type="text"
-						class="block w-full rounded-md border border-transparent px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-dark"
-						placeholder="Enter the repository url"
-					/>
-				</div>
-				<div class="mt-4 sm:mt-0 sm:ml-3">
-					<button
-						type="submit"
-						class="block w-full animate-gradient rounded-md border border-transparent bg-gradient-to-r from-teal-300 via-indigo-500 to-primary-lighter bg-[length:400%_400%] px-5 py-3 text-base font-medium text-white shadow hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-dark sm:px-10"
-					>
-						Validate
-					</button>
-				</div>
-			</form>
+			<SearchUrlForm @url-submitted="searchRepository($event)" />
 		</section>
 	</main>
 </template>
 
 <script setup lang="ts">
-const searchRepository = () => console.log("fired !");
+import SearchUrlForm from "@/components/molecules/UrlSearchForm.vue";
+
+const searchRepository = (respositoryUrl: string) =>
+	console.log("repository url : ", respositoryUrl);
 </script>
