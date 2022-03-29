@@ -11,6 +11,16 @@ export const routes = [
 		path: "/repos/:owner/:repo",
 		name: "repository",
 		component: () => import("@/views/RepositoryView.vue"),
+		children: [
+			{
+				path: "",
+				component: () => import("@/views/Repository/DefaultView.vue"),
+			},
+			{
+				path: ":nodes+",
+				component: () => import("@/views/Repository/NodeView.vue"),
+			},
+		],
 	},
 ];
 

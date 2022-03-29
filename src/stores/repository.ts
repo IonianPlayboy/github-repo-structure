@@ -20,19 +20,39 @@ export interface ContentsItem {
 export const useRepositoryStore = defineStore({
 	id: "repository",
 	state: () => ({
-		contents: [] as Array<ContentsItem>,
+		contentsPerPath: {} as Record<
+			string,
+			Array<ContentsItem> | ContentsItem
+		>,
 		owner: "",
 		repo: "",
+		path: "",
 	}),
+	getters: {
+		fullPath: (state) => `${state.owner}/${state.repo}${state.path}`,
+		nodes: (state) => state.path.split("/").filter((node) => !!node),
+		contentsForPath: (state) => (path: string) =>
+			state.contentsPerPath[path],
+		currentContents: (state) => state.contentsPerPath[state.path],
+	},
 	actions: {
-		setRepositoryContents(newData: Array<ContentsItem>) {
-			this.contents = newData;
+		setContentsForPath({
+			contents,
+			path,
+		}: {
+			contents: Array<ContentsItem>;
+			path: string;
+		}) {
+			this.contentsPerPath[path] = contents;
 		},
 		setOwner(newOwner: string) {
 			this.owner = newOwner;
 		},
 		setRepositoryName(newRepo: string) {
 			this.repo = newRepo;
+		},
+		setPath(newPath: string) {
+			this.path = newPath;
 		},
 	},
 });

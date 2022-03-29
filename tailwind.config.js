@@ -7,6 +7,7 @@ module.exports = {
 		extend: {
 			colors: {
 				primary: {
+					pale: colors.cyan["100"],
 					lighter: colors.cyan["400"],
 					light: colors.cyan["500"],
 					DEFAULT: colors.cyan["700"],

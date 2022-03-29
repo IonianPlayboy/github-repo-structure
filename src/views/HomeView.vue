@@ -66,6 +66,7 @@ const { isFetching, error, data, execute } = useFetch<Array<ContentsItem>>(
 			// NOTE: Strongly recommended to use the GitHub API
 			// https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version
 			Accept: "application/vnd.github.v3+json",
+			Authorization: import.meta.env.VITE_GITHUB_API_AUTH as string,
 		},
 	},
 	{
@@ -75,7 +76,7 @@ const { isFetching, error, data, execute } = useFetch<Array<ContentsItem>>(
 
 watch(data, (newData) => {
 	if (!newData) return;
-	repositoryStore.setRepositoryContents(newData);
+	repositoryStore.setContentsForPath({ contents: newData, path: "/" });
 });
 
 const router = useRouter();
