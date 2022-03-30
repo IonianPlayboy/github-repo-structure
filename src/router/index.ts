@@ -14,7 +14,7 @@ export const routes = [
 		children: [
 			{
 				path: "",
-				component: () => import("@/views/Repository/DefaultView.vue"),
+				component: () => import("@/views/Repository/NodeView.vue"),
 			},
 			{
 				path: ":nodes+",

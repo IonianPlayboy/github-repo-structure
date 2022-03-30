@@ -31,7 +31,8 @@ export const useRepositoryStore = defineStore({
 		path: "",
 	}),
 	getters: {
-		fullPath: (state) => `${state.owner}/${state.repo}${state.path}`,
+		fullPath: (state) =>
+			`${state.owner}/${state.repo}${state.path}`.replace(/\/$/, ""),
 		nodes: (state) => state.path.split("/").filter((node) => !!node),
 		currNode: (state) => {
 			const nodes = state.path.split("/").filter((node) => !!node);
