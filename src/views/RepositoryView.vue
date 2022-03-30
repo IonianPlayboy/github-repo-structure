@@ -3,40 +3,7 @@
 		<div
 			class="mt-8 overflow-hidden bg-gradient-to-b from-gray-800/80 via-slate-800/80 to-gray-800/80 shadow sm:w-10/12 sm:min-w-[640px] sm:rounded-lg"
 		>
-			<div class="px-4 py-5 sm:px-6">
-				<h3
-					class="flex flex-wrap items-end whitespace-nowrap border-b border-slate-700 pb-5 text-xl font-medium leading-6 text-gray-100"
-				>
-					<span class="text-primary">{{ owner }}</span
-					><span class="mx-1 text-primary-dark">/</span
-					><RouterLink
-						:to="`/repos/${owner}/${repo}`"
-						:class="{
-							'animate-gradient from-teal-300 via-indigo-500 to-primary-lighter':
-								!nodes.length,
-							'from-primary-light to-primary-dark': nodes.length,
-						}"
-						class="bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent"
-						>{{ repo }}</RouterLink
-					><template v-for="(item, i) in nodes" :key="`node_${item}`">
-						<ChevronRightIcon
-							class="h-5 w-5 text-primary"
-						/><RouterLink
-							:to="`/repos/${owner}/${repo}/${nodes
-								.slice(0, i + 1)
-								.join('/')}`"
-							:class="{
-								'animate-gradient from-teal-300 via-indigo-500 to-primary-lighter':
-									i === nodes.length - 1,
-								'from-primary-light to-primary-dark':
-									i !== nodes.length - 1,
-							}"
-							class="bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent"
-							>{{ item }}</RouterLink
-						>
-					</template>
-				</h3>
-			</div>
+			<RepositoryNav />
 			<RouterView
 				:owner="owner"
 				:repo="repo"
@@ -50,21 +17,16 @@
 
 <script setup lang="ts">
 import { computed, watch } from "vue";
-import {
-	onBeforeRouteUpdate,
-	RouterLink,
-	RouterView,
-	useRoute,
-} from "vue-router";
+import { onBeforeRouteUpdate, RouterView, useRoute } from "vue-router";
 import { useFetch } from "@vueuse/core";
+import { storeToRefs } from "pinia";
 import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
-import { ChevronRightIcon } from "@heroicons/vue/outline";
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
-import { storeToRefs } from "pinia";
+import RepositoryNav from "@/components/RepositoryNav.vue";
 
 const store = useRepositoryStore();
-const { owner, repo, path, nodes, currentContents, fullPath, currNode } =
+const { owner, repo, path, currentContents, fullPath, currNode } =
 	storeToRefs(store);
 const {
 	setOwner,

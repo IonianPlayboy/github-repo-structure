@@ -1,5 +1,5 @@
 <template>
-	<section class="px-4 pb-5 text-lg sm:px-6">
+	<section class="px-4 py-5 text-lg sm:px-6">
 		<RouterLink
 			class="flex items-center space-x-3"
 			v-for="{ name, type, sha } in sortedContents"
