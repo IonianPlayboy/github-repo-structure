@@ -1,6 +1,11 @@
 <template>
 	<nav class="flex space-x-4 sm:ml-6">
-		<AppNavLink v-for="{ to, content } in links" :to="to" :key="to">
+		<AppNavLink
+			:disabled="to === '/repos'"
+			v-for="{ to, content } in links"
+			:to="to"
+			:key="to"
+		>
 			{{ content }}
 		</AppNavLink>
 	</nav>
