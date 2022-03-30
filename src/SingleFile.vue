@@ -1,7 +1,13 @@
 <template>
 	<section class="overflow-x-scroll px-4 py-5 text-lg sm:px-6">
 		<div
-			v-if="currHTML"
+			class="whitespace-pre bg-[#22272e] px-8 py-4 font-mono text-base"
+			v-if="error"
+		>
+			An error occurred. :c
+		</div>
+		<div
+			v-else-if="currHTML"
 			v-html="currHTML"
 			class="overflow-x-auto bg-[#22272e] px-8 py-4 text-base"
 		></div>
@@ -46,17 +52,25 @@ const currHTML = ref("");
 setWasm("/shiki/dist/onigasm.wasm");
 setCDN("/shiki/");
 
+const error = ref(false);
+
 watch(
 	currText,
 	async (newText) => {
-		if (!newText) return;
-		const highlighter = await getHighlighter({
-			theme: "github-dark-dimmed",
-			langs: [currExtension.value as Lang],
-		});
-		currHTML.value = highlighter.codeToHtml(newText, {
-			lang: currExtension.value as Lang,
-		});
+		try {
+			error.value = false;
+			if (!newText) return;
+			const highlighter = await getHighlighter({
+				theme: "github-dark-dimmed",
+				langs: [currExtension.value as Lang],
+			});
+			currHTML.value = highlighter.codeToHtml(newText, {
+				lang: currExtension.value as Lang,
+			});
+		} catch (err) {
+			error.value = true;
+			console.log("error ! ", err);
+		}
 	},
 	{ immediate: true }
 );
