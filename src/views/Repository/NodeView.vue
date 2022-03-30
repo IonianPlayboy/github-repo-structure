@@ -14,7 +14,7 @@
 import type { ContentsItem } from "@/stores/repository";
 
 import FilesTree from "@/components/FilesTree.vue";
-import SingleFile from "@/SingleFile.vue";
+import SingleFile from "@/components/SingleFile.vue";
 
 defineProps<{
 	owner: string;
