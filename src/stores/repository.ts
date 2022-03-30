@@ -15,6 +15,8 @@ export interface ContentsItem {
 	size: number;
 	type: "file" | "dir";
 	url: string;
+	content?: string;
+	encoding?: string;
 }
 
 export const useRepositoryStore = defineStore({
@@ -31,6 +33,11 @@ export const useRepositoryStore = defineStore({
 	getters: {
 		fullPath: (state) => `${state.owner}/${state.repo}${state.path}`,
 		nodes: (state) => state.path.split("/").filter((node) => !!node),
+		currNode: (state) => {
+			const nodes = state.path.split("/").filter((node) => !!node);
+			const lastIndex = nodes.length - 1;
+			return nodes[lastIndex];
+		},
 		contentsForPath: (state) => (path: string) =>
 			state.contentsPerPath[path],
 		currentContents: (state) => state.contentsPerPath[state.path],
