@@ -1,7 +1,7 @@
 <template>
 	<MainWrapper>
 		<div
-			class="mt-8 overflow-hidden bg-gradient-to-b from-gray-800/80 via-slate-800/80 to-gray-800/80 shadow sm:w-10/12 sm:min-w-[640px] sm:rounded-lg"
+			class="mt-8 w-full overflow-hidden bg-gradient-to-b from-gray-800/80 via-slate-800/80 to-gray-800/80 shadow sm:w-10/12 sm:min-w-[616px] sm:rounded-lg"
 		>
 			<RepositoryNav />
 			<RouterView
