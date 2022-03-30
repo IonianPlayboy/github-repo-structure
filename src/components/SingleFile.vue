@@ -1,23 +1,25 @@
 <template>
 	<section class="px-4 py-5 text-sm sm:px-6 md:text-base">
-		<div
-			class="whitespace-pre bg-[#22272e] px-8 py-4 font-mono"
-			v-if="!isSupported"
-		>
-			An error occurred. :c
-		</div>
+		<AlertUi v-if="!isSupported" type="warning">
+			<template #title> File format not supported</template>
+
+			We can not display the content of a file with the
+			<span class="bg-orange-800/20 px-1 font-mono">
+				.{{ currExtension }}
+			</span>
+			extension at the moment.
+		</AlertUi>
 		<div
 			v-else-if="currHTML"
 			v-html="currHTML"
-			class="overflow-auto rounded bg-[#22272e] px-8 py-4"
+			class="overflow-auto rounded bg-[#22272e] px-8 py-4 shadow"
 		></div>
 		<div
-			class="overflow-auto whitespace-pre rounded bg-[#22272e] px-8 py-4 font-mono"
-			v-else-if="currText"
+			class="overflow-auto whitespace-pre rounded bg-[#22272e] px-8 py-4 font-mono shadow"
+			v-else
 		>
 			{{ currText }}
 		</div>
-		<div class="bg-[#22272e] px-8 py-4 font-mono" v-else>Loading...</div>
 	</section>
 </template>
 
@@ -32,6 +34,8 @@ import {
 	BUNDLED_LANGUAGES,
 } from "shiki";
 import { insupportedExtensions } from "@/logic";
+
+import AlertUi from "@/components/AlertUi.vue";
 
 const props = defineProps<{
 	fileName: string;

@@ -5,6 +5,7 @@
 		>
 			<RepositoryNav />
 			<RouterView
+				:loading="isFetching"
 				:owner="owner"
 				:repo="repo"
 				:contents="currentContents"

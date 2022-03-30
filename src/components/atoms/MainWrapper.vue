@@ -3,7 +3,7 @@
 		:class="{
 			'pt-8 sm:justify-center sm:pt-0': centered,
 		}"
-		class="relative flex w-full grow flex-col items-center bg-topograpy-pattern sm:px-6"
+		class="relative flex w-full grow flex-col items-center bg-topograpy-pattern pb-8 sm:px-6"
 	>
 		<slot />
 	</main>
