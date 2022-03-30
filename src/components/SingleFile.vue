@@ -1,35 +1,37 @@
 <template>
-	<section class="overflow-x-scroll px-4 py-5 text-lg sm:px-6">
+	<section class="px-4 py-5 text-sm sm:px-6 md:text-base">
 		<div
-			class="whitespace-pre bg-[#22272e] px-8 py-4 font-mono text-base"
-			v-if="error"
+			class="whitespace-pre bg-[#22272e] px-8 py-4 font-mono"
+			v-if="!isSupported"
 		>
 			An error occurred. :c
 		</div>
 		<div
 			v-else-if="currHTML"
 			v-html="currHTML"
-			class="overflow-x-auto bg-[#22272e] px-8 py-4 text-base"
+			class="overflow-auto rounded bg-[#22272e] px-8 py-4"
 		></div>
 		<div
-			class="whitespace-pre bg-[#22272e] px-8 py-4 font-mono text-base"
+			class="overflow-auto whitespace-pre rounded bg-[#22272e] px-8 py-4 font-mono"
 			v-else-if="currText"
 		>
 			{{ currText }}
 		</div>
-		<div
-			class="whitespace-pre bg-[#22272e] px-8 py-4 font-mono text-base"
-			v-else
-		>
-			Loading...
-		</div>
+		<div class="bg-[#22272e] px-8 py-4 font-mono" v-else>Loading...</div>
 	</section>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from "vue";
 import type { ContentsItem } from "@/stores/repository";
-import { getHighlighter, setWasm, setCDN, type Lang } from "shiki";
+import {
+	getHighlighter,
+	setWasm,
+	setCDN,
+	type Lang,
+	BUNDLED_LANGUAGES,
+} from "shiki";
+import { insupportedExtensions } from "@/logic";
 
 const props = defineProps<{
 	fileName: string;
@@ -37,10 +39,12 @@ const props = defineProps<{
 }>();
 
 const currText = computed(() => atob(props.contents?.content ?? ""));
-const currExtension = computed(() => {
-	const splitedName = props.fileName.split(".");
-	return splitedName[splitedName.length - 1];
-});
+const currExtension = computed(
+	() => props.fileName?.replace(/.*\.(?=\w+$)/, "") ?? ""
+);
+const isSupported = computed(
+	() => !insupportedExtensions.includes(currExtension.value)
+);
 
 watchEffect(() => console.log(currText.value));
 
@@ -52,25 +56,25 @@ const currHTML = ref("");
 setWasm("/shiki/dist/onigasm.wasm");
 setCDN("/shiki/");
 
-const error = ref(false);
+const isCompatibleWithShiki = computed(() =>
+	BUNDLED_LANGUAGES.some(
+		({ id, scopeName }) =>
+			id === currExtension.value ||
+			scopeName.replace(/.*\.(?=\w+$)/, "") === currExtension.value
+	)
+);
 
 watch(
 	currText,
 	async (newText) => {
-		try {
-			error.value = false;
-			if (!newText) return;
-			const highlighter = await getHighlighter({
-				theme: "github-dark-dimmed",
-				langs: [currExtension.value as Lang],
-			});
-			currHTML.value = highlighter.codeToHtml(newText, {
-				lang: currExtension.value as Lang,
-			});
-		} catch (err) {
-			error.value = true;
-			console.log("error ! ", err);
-		}
+		if (!newText || !isCompatibleWithShiki.value) return;
+		const highlighter = await getHighlighter({
+			theme: "github-dark-dimmed",
+			langs: [currExtension.value as Lang],
+		});
+		currHTML.value = highlighter.codeToHtml(newText, {
+			lang: currExtension.value as Lang,
+		});
 	},
 	{ immediate: true }
 );
