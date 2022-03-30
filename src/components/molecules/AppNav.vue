@@ -7,13 +7,15 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { routes } from "@/router";
+import { storeToRefs } from "pinia";
 import { useRepositoryStore } from "@/stores/repository";
 
 import AppNavLink from "@/components/atoms/AppNavLink.vue";
-import { computed } from "vue";
 
-const repositoryStore = useRepositoryStore();
+const store = useRepositoryStore();
+const { owner, repo } = storeToRefs(store);
 
 const capitalize = (text: string) =>
 	`${text.charAt(0).toUpperCase()}${text.slice(1)}`;
@@ -24,9 +26,9 @@ const links = computed(() =>
 		to:
 			name !== "repository"
 				? path
-				: !repositoryStore.repo
+				: !repo.value
 				? `/repos`
-				: `/repos/${repositoryStore.owner}/${repositoryStore.repo}`,
+				: `/repos/${owner.value}/${repo.value}`,
 	}))
 );
 </script>

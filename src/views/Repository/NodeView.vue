@@ -1,48 +1,26 @@
 <template>
-	<section
-		class="px-4 py-5 text-lg"
-		v-if="
-			'message' in
-			(repositoryStore.contentsForPath(repositoryStore.path) ?? {})
-		"
-	>
+	<section class="px-4 py-5 text-lg" v-if="'message' in (contents ?? {})">
 		No node found
 	</section>
 	<FilesTree
-		v-else-if="isDir && contentsArray"
-		:contents="contentsArray"
-		:base-path="`/repos/${repositoryStore.fullPath}`"
+		v-else-if="Array.isArray(contents)"
+		:contents="contents"
+		:base-path="`/repos/${fullPath}`"
 	/>
-	<SingleFile
-		:file-name="repositoryStore.currNode"
-		:contents="contentsObject"
-		v-else
-	/>
+	<SingleFile :file-name="currNode" :contents="contents" v-else />
 </template>
 
 <script setup lang="ts">
-import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
-import { computed } from "vue";
+import type { ContentsItem } from "@/stores/repository";
 
 import FilesTree from "@/components/FilesTree.vue";
 import SingleFile from "@/SingleFile.vue";
 
-const repositoryStore = useRepositoryStore();
-
-const contentsArray = computed(
-	() =>
-		repositoryStore.contentsForPath(
-			repositoryStore.path
-		) as Array<ContentsItem>
-);
-
-const contentsObject = computed(
-	() => repositoryStore.contentsForPath(repositoryStore.path) as ContentsItem
-);
-
-const isDir = computed(
-	() =>
-		"length" in
-		(repositoryStore.contentsForPath(repositoryStore.path) ?? {})
-);
+defineProps<{
+	owner: string;
+	repo: string;
+	contents: ContentsItem | Array<ContentsItem>;
+	fullPath: string;
+	currNode: string;
+}>();
 </script>

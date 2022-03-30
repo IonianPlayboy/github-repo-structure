@@ -7,35 +7,29 @@
 				<h3
 					class="flex flex-wrap items-end whitespace-nowrap border-b border-slate-700 pb-5 text-xl font-medium leading-6 text-gray-100"
 				>
-					<span class="text-primary">{{ repositoryStore.owner }}</span
+					<span class="text-primary">{{ owner }}</span
 					><span class="mx-1 text-primary-dark">/</span
 					><RouterLink
-						:to="`/repos/${repositoryStore.owner}/${repositoryStore.repo}`"
+						:to="`/repos/${owner}/${repo}`"
 						:class="{
 							'animate-gradient from-teal-300 via-indigo-500 to-primary-lighter':
-								!repositoryStore.nodes.length,
-							'from-primary-light to-primary-dark':
-								repositoryStore.nodes.length,
+								!nodes.length,
+							'from-primary-light to-primary-dark': nodes.length,
 						}"
 						class="bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent"
-						>{{ repositoryStore.repo }}</RouterLink
-					><template
-						v-for="(item, i) in repositoryStore.nodes"
-						:key="`node_${item}`"
-					>
+						>{{ repo }}</RouterLink
+					><template v-for="(item, i) in nodes" :key="`node_${item}`">
 						<ChevronRightIcon
 							class="h-5 w-5 text-primary"
 						/><RouterLink
-							:to="`/repos/${repositoryStore.owner}/${
-								repositoryStore.repo
-							}/${repositoryStore.nodes
+							:to="`/repos/${owner}/${repo}/${nodes
 								.slice(0, i + 1)
 								.join('/')}`"
 							:class="{
 								'animate-gradient from-teal-300 via-indigo-500 to-primary-lighter':
-									i === repositoryStore.nodes.length - 1,
+									i === nodes.length - 1,
 								'from-primary-light to-primary-dark':
-									i !== repositoryStore.nodes.length - 1,
+									i !== nodes.length - 1,
 							}"
 							class="bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent"
 							>{{ item }}</RouterLink
@@ -43,7 +37,13 @@
 					</template>
 				</h3>
 			</div>
-			<RouterView test="lol" />
+			<RouterView
+				:owner="owner"
+				:repo="repo"
+				:contents="currentContents"
+				:full-path="fullPath"
+				:curr-node="currNode"
+			/>
 		</div>
 	</MainWrapper>
 </template>
@@ -61,19 +61,29 @@ import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
 import { ChevronRightIcon } from "@heroicons/vue/outline";
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
+import { storeToRefs } from "pinia";
 
-const repositoryStore = useRepositoryStore();
+const store = useRepositoryStore();
+const { owner, repo, path, nodes, currentContents, fullPath, currNode } =
+	storeToRefs(store);
+const {
+	setOwner,
+	setRepositoryName,
+	setPath,
+	contentsForPath,
+	setContentsForPath,
+} = store;
 const route = useRoute();
 
 const repositoryUrl = computed(
-	() => `https://github.com/${repositoryStore.owner}/${repositoryStore.repo}`
+	() => `https://github.com/${owner.value}/${repo.value}`
 );
 const requestUrl = computed(
 	() =>
 		`${repositoryUrl.value.replace(
 			"github.com",
 			"api.github.com/repos"
-		)}/contents${repositoryStore.path ? "/" + repositoryStore.path : ""}`
+		)}/contents${path.value ? "/" + path.value : ""}`
 );
 const { isFetching, error, data, execute } = useFetch(
 	requestUrl,
@@ -93,49 +103,42 @@ const { isFetching, error, data, execute } = useFetch(
 	}
 ).json<Array<ContentsItem>>();
 
-const updateRepositoryInfos = ({
-	owner,
-	repo,
-	nodes,
-}: {
-	owner: string;
-	repo: string;
-	nodes: Array<string>;
-}) => {
-	repositoryStore.setOwner(owner);
-	repositoryStore.setRepositoryName(repo);
+const updateRepositoryInfos = (
+	newOwner: string,
+	newRepo: string,
+	newNodes: Array<string>
+) => {
+	setOwner(newOwner);
+	setRepositoryName(newRepo);
 
-	const path = nodes ? `/${nodes.join("/")}` : "/";
-	repositoryStore.setPath(path);
-	if (!repositoryStore.contentsForPath(path)) execute();
+	const newPath = newNodes ? `/${newNodes.join("/")}` : "/";
+	setPath(newPath);
+	if (!contentsForPath(newPath)) execute();
 };
 
-if (!repositoryStore.currentContents)
+if (!currentContents.value)
 	updateRepositoryInfos(
-		route.params as {
-			owner: string;
-			repo: string;
-			nodes: Array<string>;
-		}
+		route.params.owner as string,
+		route.params.repo as string,
+		route.params.nodes as Array<string>
 	);
 
 onBeforeRouteUpdate((to) => {
-	const { owner, repo, nodes } = to.params;
-	console.log(owner, repo, nodes);
+	const { owner: newOwner, repo: newRepo, nodes: newNodes } = to.params;
 	if (
-		typeof owner !== "string" ||
-		typeof repo !== "string" ||
-		typeof nodes === "string"
+		typeof newOwner !== "string" ||
+		typeof newRepo !== "string" ||
+		typeof newNodes === "string"
 	)
 		return;
-	updateRepositoryInfos({ owner, repo, nodes });
+	updateRepositoryInfos(newOwner, newRepo, newNodes);
 });
 
 watch(data, (newData) => {
 	if (!newData) return;
-	repositoryStore.setContentsForPath({
+	setContentsForPath({
 		contents: newData,
-		path: repositoryStore.path,
+		path: path.value,
 	});
 });
 </script>

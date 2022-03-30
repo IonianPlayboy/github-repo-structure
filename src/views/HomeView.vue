@@ -29,24 +29,27 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
 import { useFetch } from "@vueuse/core";
 import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
 import SearchUrlForm from "@/components/molecules/UrlSearchForm.vue";
 import AlertUi from "@/components/AlertUi.vue";
-import { useRouter } from "vue-router";
 
-const repositoryStore = useRepositoryStore();
+const store = useRepositoryStore();
+const { owner, repo } = storeToRefs(store);
+const { setOwner, setRepositoryName, setContentsForPath } = store;
 
 const repositoryUrl = ref("");
 
 watch(repositoryUrl, (newValue) => {
-	const [owner, repo] = newValue
+	const [newOwner, newRepo] = newValue
 		.replace("https://github.com/", "")
 		.split("/");
-	repositoryStore.setOwner(owner);
-	repositoryStore.setRepositoryName(repo);
+	setOwner(newOwner);
+	setRepositoryName(newRepo);
 });
 
 const requestUrl = computed(
@@ -76,7 +79,7 @@ const { isFetching, error, data, execute } = useFetch<Array<ContentsItem>>(
 
 watch(data, (newData) => {
 	if (!newData) return;
-	repositoryStore.setContentsForPath({ contents: newData, path: "/" });
+	setContentsForPath({ contents: newData, path: "/" });
 });
 
 const router = useRouter();
@@ -84,6 +87,6 @@ const router = useRouter();
 const searchRepository = async (respositoryUrl: string) => {
 	repositoryUrl.value = respositoryUrl;
 	await execute();
-	router.push(`/repos/${repositoryStore.owner}/${repositoryStore.repo}`);
+	if (!error.value) router.push(`/repos/${owner.value}/${repo.value}`);
 };
 </script>
