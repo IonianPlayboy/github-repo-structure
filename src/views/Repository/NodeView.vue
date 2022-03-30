@@ -5,7 +5,7 @@
 	<FilesTree
 		v-else-if="isDir && contents"
 		:contents="contents"
-		:base-path="encodeURI(`/repos/${repositoryStore.fullPath}`)"
+		:base-path="`/repos/${repositoryStore.fullPath}`"
 	/>
 	<section class="px-4 py-5 text-lg" v-else>
 		{{ repositoryStore.path }}

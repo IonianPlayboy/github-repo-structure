@@ -4,7 +4,7 @@
 			class="flex items-center space-x-3"
 			v-for="{ name, type, sha } in sortedContents"
 			:class="{ 'text-primary-pale': type === 'dir' }"
-			:to="`${basePath}/${encodeURI(name)}`"
+			:to="`${basePath}/${name.replaceAll('.', '%2E')}`"
 			:key="sha"
 		>
 			<component class="h-5 w-5" :is="getCurrIcon(type)" />

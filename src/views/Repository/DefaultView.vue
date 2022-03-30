@@ -2,7 +2,10 @@
 	<FilesTree
 		v-if="contents"
 		:base-path="
-			encodeURI(`/repos/${repositoryStore.owner}/${repositoryStore.repo}`)
+			`/repos/${repositoryStore.owner}/${repositoryStore.repo}`.replace(
+				'.',
+				'%2E'
+			)
 		"
 		:contents="contents"
 	/>

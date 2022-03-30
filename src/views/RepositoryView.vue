@@ -30,7 +30,6 @@
 								repositoryStore.repo
 							}/${repositoryStore.nodes
 								.slice(0, i + 1)
-								.map((node) => node.replace('.', '%2E'))
 								.join('/')}`"
 							:class="{
 								'animate-gradient from-teal-300 via-indigo-500 to-primary-lighter':
