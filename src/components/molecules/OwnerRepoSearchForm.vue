@@ -18,11 +18,13 @@
 				v-model="currRepositoryRepo"
 			/>
 		</div>
-		<SearchSubmitButton
+		<ButtonPrimary
 			:disabled="!currRepositoryOwner || !currRepositoryRepo"
 			:loading="loading"
-			class="mt-4 sm:mt-0 sm:ml-3"
-		/>
+			class="mt-4 w-full sm:mt-0 sm:ml-3 sm:w-auto"
+		>
+			Validate
+		</ButtonPrimary>
 	</form>
 </template>
 
@@ -30,7 +32,7 @@
 import { ref, watch } from "vue";
 
 import SearchInput from "@/components/atoms/SearchInput.vue";
-import SearchSubmitButton from "@/components/atoms/SearchSubmitButton.vue";
+import ButtonPrimary from "@/components/atoms/ButtonPrimary.vue";
 
 const currRepositoryOwner = ref("");
 const currRepositoryRepo = ref("");
