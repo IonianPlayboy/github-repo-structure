@@ -2,19 +2,21 @@
 	<h3
 		class="flex flex-wrap items-end whitespace-nowrap border-b border-slate-700 px-4 py-5 text-xl font-medium leading-6 text-gray-100 sm:px-6"
 	>
-		<span class="text-primary">
-			{{ owner }}
-		</span>
-		<span class="mx-1 text-primary-dark"> / </span>
-		<RouterLink
-			:to="baseRoute"
-			:class="{
-				'animate-gradient from-teal-300 via-indigo-500 to-primary-lighter':
-					!nodes.length,
-				'from-primary-light to-primary-dark': nodes.length,
-			}"
-			class="bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent"
-			>{{ repo }}
+		<RouterLink :to="baseRoute">
+			<span class="text-primary">
+				{{ owner }}
+			</span>
+			<span class="mx-1 text-primary-dark"> / </span>
+			<span
+				:class="{
+					'animate-gradient from-teal-300 via-indigo-500 to-primary-lighter':
+						!nodes.length,
+					'from-primary-light to-primary-dark': nodes.length,
+				}"
+				class="bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent"
+			>
+				{{ repo }}
+			</span>
 		</RouterLink>
 		<template v-for="(item, i) in nodes" :key="`node_${item}`">
 			<ChevronRightIcon class="h-5 w-5 text-primary" />
