@@ -11,29 +11,15 @@
 					repository
 				</span>
 			</h1>
-			<keep-alive>
-				<UrlSearchForm
-					v-if="inputMode === 'url'"
-					:loading="isFetching"
-					@url-changed="error = null"
-					@url-submitted="searchRepository($event)"
-				/>
-				<OwnerRepoSearchForm
-					v-else
-					:loading="isFetching"
-					@url-changed="error = null"
-					@url-submitted="searchRepository($event)"
-				/>
-			</keep-alive>
-			<ButtonSecondary
-				@click="inputMode = inputMode === 'url' ? 'owner/repo' : 'url'"
-			>
-				<SwitchHorizontalIcon
-					class="-ml-1 mr-2 h-5 w-5"
-					aria-hidden="true"
-				/>
-				Switch input mode
-			</ButtonSecondary>
+			<SearchForm
+				:mode="inputMode"
+				:loading="isFetching"
+				@url-changed="error = null"
+				@url-submitted="searchRepository($event)"
+				@mode-switched="
+					inputMode = inputMode === 'url' ? 'owner/repo' : 'url'
+				"
+			/>
 			<AlertUi class="mt-6" type="error" v-if="error">
 				<template #title>
 					An error occured while fetching the repository
@@ -53,10 +39,7 @@ import { useFetch } from "@vueuse/core";
 import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
-import UrlSearchForm from "@/components/molecules/UrlSearchForm.vue";
-import OwnerRepoSearchForm from "@/components/molecules/OwnerRepoSearchForm.vue";
-import ButtonSecondary from "@/components/atoms/ButtonSecondary.vue";
-import { SwitchHorizontalIcon } from "@heroicons/vue/outline";
+import SearchForm from "@/components/organisms/SearchForm.vue";
 import AlertUi from "@/components/AlertUi.vue";
 
 const store = useRepositoryStore();
