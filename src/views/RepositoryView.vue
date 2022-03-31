@@ -5,6 +5,7 @@
 		>
 			<RepositoryNav />
 			<RouterView
+				:error="error"
 				:loading="isFetching"
 				:owner="owner"
 				:repo="repo"
@@ -38,15 +39,9 @@ const {
 } = store;
 const route = useRoute();
 
-const repositoryUrl = computed(
-	() => `https://github.com/${owner.value}/${repo.value}`
-);
 const requestUrl = computed(
 	() =>
-		`${repositoryUrl.value.replace(
-			"github.com",
-			"api.github.com/repos"
-		)}/contents${path.value ? "/" + path.value : ""}`
+		`https://api.github.com/repos/${owner.value}/${repo.value}/contents${path.value}`
 );
 const { isFetching, error, data, execute } = useFetch(
 	requestUrl,

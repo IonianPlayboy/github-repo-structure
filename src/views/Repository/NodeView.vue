@@ -1,10 +1,7 @@
 <template>
-	<section class="px-4 py-5 text-lg" v-if="loading">Loading...</section>
-	<section
-		class="px-4 py-5 text-lg"
-		v-else-if="'message' in (contents ?? {})"
-	>
-		<div class="px-8 py-4">
+	<section class="px-4 py-5 text-lg sm:px-6">
+		<template v-if="loading">Loading...</template>
+		<template v-else-if="error === 'Not Found'">
 			<AlertUi type="warning">
 				<template #title> No file or folder found</template>
 
@@ -20,14 +17,25 @@
 					)
 				</p>
 			</AlertUi>
-		</div>
+		</template>
+		<template v-else-if="error">
+			<AlertUi type="error">
+				<template #title>
+					An error occured while fetching the repository
+				</template>
+				<template #default>
+					{{ error }}
+				</template>
+			</AlertUi>
+		</template>
+
+		<FilesTree
+			v-else-if="Array.isArray(contents)"
+			:contents="contents"
+			:base-path="`/repos/${fullPath}`"
+		/>
+		<SingleFile :file-name="currNode" :contents="contents" v-else />
 	</section>
-	<FilesTree
-		v-else-if="Array.isArray(contents)"
-		:contents="contents"
-		:base-path="`/repos/${fullPath}`"
-	/>
-	<SingleFile :file-name="currNode" :contents="contents" v-else />
 </template>
 
 <script setup lang="ts">
@@ -38,6 +46,7 @@ import SingleFile from "@/components/SingleFile.vue";
 import AlertUi from "@/components/AlertUi.vue";
 
 defineProps<{
+	error: any;
 	loading: boolean;
 	owner: string;
 	repo: string;

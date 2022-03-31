@@ -1,26 +1,24 @@
 <template>
-	<section class="px-4 py-5 text-sm sm:px-6 md:text-base">
-		<AlertUi v-if="!isSupported" type="warning">
-			<template #title> File format not supported</template>
+	<AlertUi v-if="!isSupported" type="warning">
+		<template #title> File format not supported</template>
 
-			We can not display the content of a file with the
-			<span class="bg-orange-800/20 px-1 font-mono">
-				.{{ currExtension }}
-			</span>
-			extension at the moment.
-		</AlertUi>
-		<div
-			v-else-if="currHTML"
-			v-html="currHTML"
-			class="overflow-auto rounded bg-[#22272e] px-8 py-4 shadow"
-		></div>
-		<div
-			class="overflow-auto whitespace-pre rounded bg-[#22272e] px-8 py-4 font-mono shadow"
-			v-else
-		>
-			{{ currText }}
-		</div>
-	</section>
+		We can not display the content of a file with the
+		<span class="bg-orange-800/20 px-1 font-mono">
+			.{{ currExtension }}
+		</span>
+		extension at the moment.
+	</AlertUi>
+	<div
+		v-else-if="currHTML"
+		v-html="currHTML"
+		class="overflow-auto rounded bg-[#22272e] px-8 py-4 text-sm shadow md:text-base"
+	></div>
+	<div
+		class="overflow-auto whitespace-pre rounded bg-[#22272e] px-8 py-4 font-mono text-sm shadow md:text-base"
+		v-else
+	>
+		{{ currText }}
+	</div>
 </template>
 
 <script setup lang="ts">
