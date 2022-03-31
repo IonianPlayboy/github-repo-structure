@@ -25,9 +25,15 @@
 					@url-submitted="searchRepository($event)"
 				/>
 			</keep-alive>
-			<SwitchButton
+			<ButtonSecondary
 				@click="inputMode = inputMode === 'url' ? 'owner/repo' : 'url'"
-			/>
+			>
+				<SwitchHorizontalIcon
+					class="-ml-1 mr-2 h-5 w-5"
+					aria-hidden="true"
+				/>
+				Switch input mode
+			</ButtonSecondary>
 			<AlertUi class="mt-6" type="error" v-if="error">
 				<template #title>
 					An error occured while fetching the repository
@@ -41,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useFetch } from "@vueuse/core";
 import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
@@ -49,22 +55,17 @@ import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
 import UrlSearchForm from "@/components/molecules/UrlSearchForm.vue";
 import OwnerRepoSearchForm from "@/components/molecules/OwnerRepoSearchForm.vue";
-import SwitchButton from "@/components/atoms/SwitchButton.vue";
+import ButtonSecondary from "@/components/atoms/ButtonSecondary.vue";
+import { SwitchHorizontalIcon } from "@heroicons/vue/outline";
 import AlertUi from "@/components/AlertUi.vue";
 
 const store = useRepositoryStore();
 
-const currOwner = ref("");
-const currRepo = ref("");
-
 const { setOwner, setRepositoryName, setContentsForPath } = store;
 
+const requestUrl = ref("");
 const inputMode = ref<"url" | "owner/repo">("url");
 
-const requestUrl = computed(
-	() =>
-		`https://api.github.com/repos/${currOwner.value}/${currRepo.value}/contents`
-);
 const { isFetching, error, data, execute } = useFetch(
 	requestUrl,
 	{
@@ -83,11 +84,6 @@ const { isFetching, error, data, execute } = useFetch(
 	}
 ).json<Array<ContentsItem>>();
 
-watch(data, (newData) => {
-	if (!newData) return;
-	setContentsForPath({ contents: newData, path: "/" });
-});
-
 const router = useRouter();
 
 const searchRepository = async ({
@@ -97,13 +93,13 @@ const searchRepository = async ({
 	owner: string;
 	repo: string;
 }) => {
-	currOwner.value = newOwner;
-	currRepo.value = newRepo;
+	requestUrl.value = `https://api.github.com/repos/${newOwner}/${newRepo}/contents`;
 	await execute();
 
-	if (error.value) return;
+	if (error.value || !data.value) return;
 	setOwner(newOwner);
 	setRepositoryName(newRepo);
-	router.push(`/repos/${currOwner.value}/${currRepo.value}`);
+	setContentsForPath({ contents: data.value, path: "/" });
+	router.push(`/repos/${newOwner}/${newRepo}`);
 };
 </script>
