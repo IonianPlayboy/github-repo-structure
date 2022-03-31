@@ -14,14 +14,16 @@
 				:curr-node="currNode"
 			/>
 		</div>
-		<ScrollUpButton :should-show="!navIsVisible && !isFetching" />
+		<ScrollUpButton
+			:should-show="isMounted && !navIsVisible && !isFetching"
+		/>
 	</MainWrapper>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { onBeforeRouteUpdate, RouterView, useRoute } from "vue-router";
-import { useElementVisibility, useFetch } from "@vueuse/core";
+import { useElementVisibility, useFetch, useMounted } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
@@ -102,4 +104,6 @@ const respositoryNav = ref<null | InstanceType<typeof RepositoryNav>>(null);
 const navElement = computed(() => respositoryNav.value?.$el);
 
 const navIsVisible = useElementVisibility(navElement);
+
+const isMounted = useMounted();
 </script>
