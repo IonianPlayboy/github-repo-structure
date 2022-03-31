@@ -88,13 +88,9 @@ if (!currentContents.value)
 
 onBeforeRouteUpdate((to) => {
 	const { owner: newOwner, repo: newRepo, nodes: newNodes } = to.params;
-	if (
-		typeof newOwner !== "string" ||
-		typeof newRepo !== "string" ||
-		typeof newNodes === "string"
-	)
-		return;
-	updateRepositoryInfos(newOwner, newRepo, newNodes);
+	if (typeof newOwner !== "string" || typeof newRepo !== "string") return;
+	const currNodes = typeof newNodes !== "string" ? newNodes : [];
+	updateRepositoryInfos(newOwner, newRepo, currNodes);
 });
 
 watch(data, (newData) => {

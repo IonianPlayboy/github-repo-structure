@@ -37,11 +37,11 @@ export const useRepositoryStore = defineStore({
 		currNode: (state) => {
 			const nodes = state.path.split("/").filter((node) => !!node);
 			const lastIndex = nodes.length - 1;
-			return nodes[lastIndex];
+			return nodes[lastIndex] ?? "";
 		},
 		contentsForPath: (state) => (path: string) =>
 			state.contentsPerPath[path],
-		currentContents: (state) => state.contentsPerPath[state.path],
+		currentContents: (state) => state.contentsPerPath[state.path] ?? null,
 	},
 	actions: {
 		setContentsForPath({

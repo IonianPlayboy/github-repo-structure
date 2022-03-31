@@ -13,11 +13,7 @@ export const routes = [
 		component: () => import("@/views/RepositoryView.vue"),
 		children: [
 			{
-				path: "",
-				component: () => import("@/views/Repository/NodeView.vue"),
-			},
-			{
-				path: ":nodes+",
+				path: ":nodes*",
 				component: () => import("@/views/Repository/NodeView.vue"),
 			},
 		],
