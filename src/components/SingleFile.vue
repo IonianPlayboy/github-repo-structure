@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 import type { ContentsItem } from "@/stores/repository";
 import {
 	getHighlighter,
@@ -47,8 +47,6 @@ const currExtension = computed(
 const isSupported = computed(
 	() => !insupportedExtensions.includes(currExtension.value)
 );
-
-watchEffect(() => console.log(currText.value));
 
 const currHTML = ref("");
 

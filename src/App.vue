@@ -1,6 +1,6 @@
 <template>
 	<Head>
-		<html class="h-full" />
+		<html class="h-full scroll-smooth" />
 		<body
 			class="h-full bg-gradient-to-b from-slate-900 via-gray-800 to-gray-900 font-body text-gray-300"
 		/>

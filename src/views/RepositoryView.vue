@@ -3,7 +3,7 @@
 		<div
 			class="mt-8 w-full overflow-hidden bg-gradient-to-b from-gray-800/80 via-slate-800/80 to-gray-800/80 shadow sm:w-10/12 sm:min-w-[616px] sm:rounded-lg"
 		>
-			<RepositoryNav />
+			<RepositoryNav ref="respositoryNav" />
 			<RouterView
 				:error="error"
 				:loading="isFetching"
@@ -14,18 +14,35 @@
 				:curr-node="currNode"
 			/>
 		</div>
+		<transition
+			enter-from-class="opacity-0"
+			enter-active-class="transition ease-out transition-opacity"
+			leave-active-class="transition ease-out transition-opacity"
+			leave-to-class="opacity-0"
+		>
+			<ButtonSecondary
+				v-if="!navIsVisible && !isFetching"
+				class="fixed bottom-6 right-6"
+				el="a"
+				href="#"
+			>
+				Go to top <ArrowSmUpIcon class="ml-1 h-5 w-5" />
+			</ButtonSecondary>
+		</transition>
 	</MainWrapper>
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { onBeforeRouteUpdate, RouterView, useRoute } from "vue-router";
-import { useFetch } from "@vueuse/core";
+import { useElementVisibility, useFetch } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
 import RepositoryNav from "@/components/RepositoryNav.vue";
+import ButtonSecondary from "@/components/atoms/ButtonSecondary.vue";
+import { ArrowSmUpIcon } from "@heroicons/vue/outline";
 
 const store = useRepositoryStore();
 const { owner, repo, path, currentContents, fullPath, currNode } =
@@ -95,4 +112,9 @@ watch(data, (newData) => {
 		path: path.value,
 	});
 });
+
+const respositoryNav = ref<null | InstanceType<typeof RepositoryNav>>(null);
+const navElement = computed(() => respositoryNav.value?.$el);
+
+const navIsVisible = useElementVisibility(navElement);
 </script>
