@@ -20,7 +20,7 @@ import { useRepositoryStore } from "@/stores/repository";
 import AppNavLink from "@/components/atoms/AppNavLink.vue";
 
 const store = useRepositoryStore();
-const { owner, repo } = storeToRefs(store);
+const { repo, fullPath } = storeToRefs(store);
 
 const capitalize = (text: string) =>
 	`${text.charAt(0).toUpperCase()}${text.slice(1)}`;
@@ -33,7 +33,7 @@ const links = computed(() =>
 				? path
 				: !repo.value
 				? `/repos`
-				: `/repos/${owner.value}/${repo.value}`,
+				: `/repos/${fullPath.value}`,
 	}))
 );
 </script>
