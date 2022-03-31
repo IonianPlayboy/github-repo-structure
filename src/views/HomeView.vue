@@ -1,6 +1,6 @@
 <template>
 	<MainWrapper centered>
-		<section>
+		<section class="flex flex-col">
 			<h1
 				class="text-4xl font-extrabold tracking-tight text-gray-100 sm:text-5xl md:text-6xl"
 			>
@@ -11,9 +11,22 @@
 					repository
 				</span>
 			</h1>
-			<SearchUrlForm
-				:loading="isFetching"
-				@url-submitted="searchRepository($event)"
+			<keep-alive>
+				<UrlSearchForm
+					v-if="inputMode === 'url'"
+					:loading="isFetching"
+					@url-changed="error = null"
+					@url-submitted="searchRepository($event)"
+				/>
+				<OwnerRepoSearchForm
+					v-else
+					:loading="isFetching"
+					@url-changed="error = null"
+					@url-submitted="searchRepository($event)"
+				/>
+			</keep-alive>
+			<SwitchButton
+				@click="inputMode = inputMode === 'url' ? 'owner/repo' : 'url'"
 			/>
 			<AlertUi class="mt-6" type="error" v-if="error">
 				<template #title>
@@ -28,38 +41,31 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, nextTick, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { storeToRefs } from "pinia";
 import { useFetch } from "@vueuse/core";
 import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
-import SearchUrlForm from "@/components/molecules/UrlSearchForm.vue";
+import UrlSearchForm from "@/components/molecules/UrlSearchForm.vue";
+import OwnerRepoSearchForm from "@/components/molecules/OwnerRepoSearchForm.vue";
+import SwitchButton from "@/components/atoms/SwitchButton.vue";
 import AlertUi from "@/components/AlertUi.vue";
 
 const store = useRepositoryStore();
-const { owner, repo } = storeToRefs(store);
+
+const currOwner = ref("");
+const currRepo = ref("");
+
 const { setOwner, setRepositoryName, setContentsForPath } = store;
 
-const repositoryUrl = ref("");
-
-watch(repositoryUrl, (newValue) => {
-	const [newOwner, newRepo] = newValue
-		.replace("https://github.com/", "")
-		.split("/");
-	setOwner(newOwner);
-	setRepositoryName(newRepo);
-});
+const inputMode = ref<"url" | "owner/repo">("url");
 
 const requestUrl = computed(
 	() =>
-		`${repositoryUrl.value.replace(
-			"github.com",
-			"api.github.com/repos"
-		)}/contents`
+		`https://api.github.com/repos/${currOwner.value}/${currRepo.value}/contents`
 );
-const { isFetching, error, data, execute } = useFetch<Array<ContentsItem>>(
+const { isFetching, error, data, execute } = useFetch(
 	requestUrl,
 	{
 		headers: {
@@ -75,7 +81,7 @@ const { isFetching, error, data, execute } = useFetch<Array<ContentsItem>>(
 	{
 		immediate: false,
 	}
-).json();
+).json<Array<ContentsItem>>();
 
 watch(data, (newData) => {
 	if (!newData) return;
@@ -84,9 +90,20 @@ watch(data, (newData) => {
 
 const router = useRouter();
 
-const searchRepository = async (respositoryUrl: string) => {
-	repositoryUrl.value = respositoryUrl;
+const searchRepository = async ({
+	owner: newOwner,
+	repo: newRepo,
+}: {
+	owner: string;
+	repo: string;
+}) => {
+	currOwner.value = newOwner;
+	currRepo.value = newRepo;
 	await execute();
-	if (!error.value) router.push(`/repos/${owner.value}/${repo.value}`);
+
+	if (error.value) return;
+	setOwner(newOwner);
+	setRepositoryName(newRepo);
+	router.push(`/repos/${currOwner.value}/${currRepo.value}`);
 };
 </script>

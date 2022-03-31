@@ -5,8 +5,8 @@
 		type="text"
 		:value="modelValue"
 		@input="updateValue($event)"
-		class="block w-full rounded-md border border-transparent px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-dark"
-		placeholder="Enter the repository url"
+		class="block w-full grow rounded-md border border-transparent px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-dark"
+		:placeholder="placeholder"
 	/>
 </template>
 
@@ -21,6 +21,7 @@ id++;
 
 const props = defineProps<{
 	label: string;
+	placeholder: string;
 	modelValue: string;
 }>();
 

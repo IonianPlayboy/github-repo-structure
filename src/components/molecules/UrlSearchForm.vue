@@ -1,10 +1,14 @@
 <template>
 	<form
-		@submit.prevent="emit('urlSubmitted', currRepositoryUrl)"
-		class="mt-12 sm:mx-auto sm:flex sm:max-w-lg"
+		@submit.prevent="submitUrl()"
+		class="mt-12 w-full sm:mx-auto sm:flex sm:max-w-lg"
 	>
 		<div class="min-w-0 flex-1">
-			<SearchInput label="Repository link" v-model="currRepositoryUrl" />
+			<SearchInput
+				label="Repository link"
+				placeholder="Enter the repository url"
+				v-model="currRepositoryUrl"
+			/>
 		</div>
 		<SearchSubmitButton
 			:disabled="!currRepositoryUrl"
@@ -15,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 import SearchInput from "@/components/atoms/SearchInput.vue";
 import SearchSubmitButton from "@/components/atoms/SearchSubmitButton.vue";
@@ -25,6 +29,22 @@ const currRepositoryUrl = ref("");
 defineProps<{ loading?: boolean }>();
 
 const emit = defineEmits<{
-	(eventName: "urlSubmitted", newValue: string): void;
+	(
+		eventName: "urlSubmitted",
+		newValue: { owner: string; repo: string }
+	): void;
+	(eventName: "urlChanged"): void;
 }>();
+
+const submitUrl = () => {
+	const [newOwner, newRepo] = currRepositoryUrl.value
+		.replace("https://github.com/", "")
+		.split("/");
+	emit("urlSubmitted", {
+		owner: newOwner,
+		repo: newRepo,
+	});
+};
+
+watch(currRepositoryUrl, () => emit("urlChanged"));
 </script>
