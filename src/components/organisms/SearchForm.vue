@@ -1,12 +1,12 @@
 <template>
 	<keep-alive>
-		<UrlSearchForm
+		<SearchFormUrl
 			v-if="mode === 'url'"
 			:loading="loading"
 			@url-changed="emit('urlChanged')"
 			@url-submitted="emit('urlSubmitted', $event)"
 		/>
-		<OwnerRepoSearchForm
+		<SearchFormOwnerRepo
 			v-else
 			:loading="loading"
 			@url-changed="emit('urlChanged')"
@@ -20,8 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import UrlSearchForm from "@/components/molecules/UrlSearchForm.vue";
-import OwnerRepoSearchForm from "@/components/molecules/OwnerRepoSearchForm.vue";
+import SearchFormUrl from "@/components/molecules/SearchFormUrl.vue";
+import SearchFormOwnerRepo from "@/components/molecules/SearchFormOwnerRepo.vue";
 import ButtonSecondary from "@/components/atoms/ButtonSecondary.vue";
 import { SwitchHorizontalIcon } from "@heroicons/vue/outline";
 
