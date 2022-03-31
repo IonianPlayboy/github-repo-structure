@@ -8,6 +8,10 @@
 		</span>
 		extension at the moment.
 	</AlertUi>
+	<AlertUi type="disabled" v-else-if="isEmpty">
+		<template #title>Empty file</template>
+		This file has no content.
+	</AlertUi>
 	<div
 		v-else-if="currHTML"
 		v-html="currHTML"
@@ -47,6 +51,7 @@ const currExtension = computed(
 const isSupported = computed(
 	() => !insupportedExtensions.includes(currExtension.value)
 );
+const isEmpty = computed(() => props.contents.size === 0);
 
 const currHTML = ref("");
 
