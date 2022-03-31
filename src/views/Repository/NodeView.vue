@@ -46,7 +46,7 @@ import SingleFile from "@/components/SingleFile.vue";
 import AlertUi from "@/components/AlertUi.vue";
 
 defineProps<{
-	error: any;
+	error: string;
 	loading: boolean;
 	owner: string;
 	repo: string;

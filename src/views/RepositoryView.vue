@@ -14,21 +14,7 @@
 				:curr-node="currNode"
 			/>
 		</div>
-		<transition
-			enter-from-class="opacity-0"
-			enter-active-class="transition ease-out transition-opacity"
-			leave-active-class="transition ease-out transition-opacity"
-			leave-to-class="opacity-0"
-		>
-			<ButtonSecondary
-				v-if="!navIsVisible && !isFetching"
-				class="fixed bottom-6 right-6"
-				el="a"
-				href="#"
-			>
-				Go to top <ArrowSmUpIcon class="ml-1 h-5 w-5" />
-			</ButtonSecondary>
-		</transition>
+		<ScrollUpButton :should-show="!navIsVisible && !isFetching" />
 	</MainWrapper>
 </template>
 
@@ -41,8 +27,7 @@ import { useRepositoryStore, type ContentsItem } from "@/stores/repository";
 
 import MainWrapper from "@/components/atoms/MainWrapper.vue";
 import RepositoryNav from "@/components/RepositoryNav.vue";
-import ButtonSecondary from "@/components/atoms/ButtonSecondary.vue";
-import { ArrowSmUpIcon } from "@heroicons/vue/outline";
+import ScrollUpButton from "@/components/molecules/ScrollUpButton.vue";
 
 const store = useRepositoryStore();
 const { owner, repo, path, currentContents, fullPath, currNode } =
