@@ -4,6 +4,7 @@
 		<body
 			class="h-full bg-gradient-to-b from-slate-900 via-gray-800 to-gray-900 font-body text-gray-300"
 		/>
+		<title>Github Repo Structure</title>
 	</Head>
 	<AppHeader />
 	<RouterView />
