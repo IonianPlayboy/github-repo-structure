@@ -44,6 +44,9 @@ export const useRepositoryStore = defineStore({
 		currentContents: (state) => state.contentsPerPath[state.path] ?? null,
 	},
 	actions: {
+		resetContentsPerPath() {
+			this.contentsPerPath = {};
+		},
 		setContentsForPath({
 			contents,
 			path,

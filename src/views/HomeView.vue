@@ -44,7 +44,13 @@ import AlertUi from "@/components/AlertUi.vue";
 
 const store = useRepositoryStore();
 
-const { setOwner, setRepositoryName, setContentsForPath, setPath } = store;
+const {
+	setOwner,
+	setRepositoryName,
+	resetContentsPerPath,
+	setContentsForPath,
+	setPath,
+} = store;
 
 const requestUrl = ref("");
 const inputMode = ref<"url" | "owner/repo">("url");
@@ -82,6 +88,7 @@ const searchRepository = async ({
 	if (error.value || !data.value) return;
 	setOwner(newOwner);
 	setRepositoryName(newRepo);
+	resetContentsPerPath();
 	setContentsForPath({ contents: data.value, path: "/" });
 	setPath("/");
 	router.push(`/repos/${newOwner}/${newRepo}`);
