@@ -1,8 +1,9 @@
 <template>
 	<h3
 		class="flex flex-wrap items-end whitespace-nowrap border-b border-slate-700 px-4 py-5 text-xl font-medium leading-6 text-gray-100 sm:px-6"
+		data-testid="repositoryNav"
 	>
-		<RouterLink :to="baseRoute">
+		<RouterLink :to="baseRoute" data-testid="repository-root">
 			<span class="text-primary">
 				{{ owner }}
 			</span>
@@ -29,6 +30,7 @@
 						i !== nodes.length - 1,
 				}"
 				class="bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent"
+				:data-testid="`repository-${item}`"
 			>
 				{{ item }}
 			</RouterLink>

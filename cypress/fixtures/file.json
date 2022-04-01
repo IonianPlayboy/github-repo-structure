@@ -1,0 +1,18 @@
+{
+	"name": "windi.config.ts",
+	"path": "windi.config.ts",
+	"sha": "78b3d8bc0fc4376d6b4cebfaeb2712d7391e450b",
+	"size": 478,
+	"url": "https://api.github.com/repos/IonianPlayboy/tailwind-colors/contents/windi.config.ts?ref=master",
+	"html_url": "https://github.com/IonianPlayboy/tailwind-colors/blob/master/windi.config.ts",
+	"git_url": "https://api.github.com/repos/IonianPlayboy/tailwind-colors/git/blobs/78b3d8bc0fc4376d6b4cebfaeb2712d7391e450b",
+	"download_url": "https://raw.githubusercontent.com/IonianPlayboy/tailwind-colors/master/windi.config.ts",
+	"type": "file",
+	"content": "aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAidml0ZS1wbHVnaW4td2lu\nZGljc3MiOwppbXBvcnQgY29sb3JzIGZyb20gIndpbmRpY3NzL2NvbG9ycyI7\nCmltcG9ydCBkZWZhdWx0VGhlbWUgZnJvbSAid2luZGljc3MvZGVmYXVsdFRo\nZW1lIjsKaW1wb3J0IGZvcm1zUGx1Z2luIGZyb20gIndpbmRpY3NzL3BsdWdp\nbi9mb3JtcyI7CgpleHBvcnQgZGVmYXVsdCBkZWZpbmVDb25maWcoewoJZGFy\na01vZGU6ICJjbGFzcyIsCgl0aGVtZTogewoJCWV4dGVuZDogewoJCQljb2xv\ncnM6IHsKCQkJCS4uLmNvbG9ycywKCQkJfSwKCQkJZm9udEZhbWlseTogewoJ\nCQkJZGlzcGxheTogWyJCdWJibGVyIE9uZSIsIC4uLmRlZmF1bHRUaGVtZS5m\nb250RmFtaWx5LnNhbnNdLAoJCQkJYm9keTogWyJFc3RlYmFuIiwgLi4uZGVm\nYXVsdFRoZW1lLmZvbnRGYW1pbHkuc2VyaWZdLAoJCQl9LAoJCX0sCgl9LAoJ\ncGx1Z2luczogW2Zvcm1zUGx1Z2luXSwKfSk7Cg==\n",
+	"encoding": "base64",
+	"_links": {
+		"self": "https://api.github.com/repos/IonianPlayboy/tailwind-colors/contents/windi.config.ts?ref=master",
+		"git": "https://api.github.com/repos/IonianPlayboy/tailwind-colors/git/blobs/78b3d8bc0fc4376d6b4cebfaeb2712d7391e450b",
+		"html": "https://github.com/IonianPlayboy/tailwind-colors/blob/master/windi.config.ts"
+	}
+}

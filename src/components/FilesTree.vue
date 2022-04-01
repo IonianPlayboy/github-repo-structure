@@ -6,6 +6,7 @@
 			:class="{ 'text-primary-pale': type === 'dir' }"
 			:to="`${basePath}/${name.replaceAll('.', '%2E')}`"
 			:key="`link-${sha}`"
+			:data-testid="type"
 		>
 			<component class="h-5 w-5" :is="getCurrIcon(type)" />
 			<span>{{ name }}</span>
