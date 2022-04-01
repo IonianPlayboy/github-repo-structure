@@ -1,8 +1,10 @@
 // https://docs.cypress.io/api/introduction/api.html
 
 describe("Home page", () => {
-	it("exists", () => {
+	beforeEach(() => {
 		cy.visit("/");
+	});
+	it("exists", () => {
 		cy.contains("h1", "Visualize your repository");
 		cy.get("[data-testid=buttonPrimary]").should("be.disabled");
 		cy.get("[data-testid=buttonSecondary]").should("be.enabled");
@@ -23,7 +25,6 @@ describe("Home page", () => {
 			fixture: "repository",
 		}).as("getRepository");
 
-		cy.get("[data-testid=buttonSecondary]").click();
 		cy.get("input").clear().type("testOwner/testRepo");
 		cy.get("[data-testid=buttonPrimary]").click();
 		cy.wait(["@getRepository"]);
@@ -36,7 +37,6 @@ describe("Home page", () => {
 			fixture: "repository",
 		}).as("getRepository");
 
-		cy.visit("/");
 		cy.get("[data-testid=buttonSecondary]").click();
 		cy.get("[data-testid=inputOwner]").clear().type("testOwner");
 		cy.get("[data-testid=inputRepository]").clear().type("testRepo");
