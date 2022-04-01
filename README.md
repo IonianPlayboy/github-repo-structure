@@ -1,59 +1,64 @@
 # github-repo-structure
 
-This template should help get you started developing with Vue 3 in Vite.
+![Netlify Status](https://api.netlify.com/api/v1/badges/2d80ec1e-3479-4912-950f-3fe7ebecd0b5/deploy-status)
 
-## Recommended IDE Setup
+The website is [currently live on Netlify](https://github-repo-structure.netlify.app/), with automatic deploys enabled.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+### How to run the project locally
 
-## Type Support for `.vue` Imports in TS
+1. Clone the repository
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+	```sh
+	git clone https://github.com/IonianPlayboy/github-repo-structure.git
+	```
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+2. Install the project dependencies (with [yarn](https://classic.yarnpkg.com))
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+	```sh
+	yarn
+	```
 
-## Customize configuration
+3. Start the [Vite](https://vitejs.dev/) dev server
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+	```sh
+	yarn dev
+	```
+	The website should now be running locally on `http://localhost:3000`
 
-## Project Setup
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-npm run build
+yarn build
 ```
+You can then preview the production build of the website without deploying :
+```sh
+yarn preview
+```
+The production build should now be running locally on `http://localhost:5050/`
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-npm run test:unit
+yarn test:unit
 ```
 
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
-npm run build
-npm run test:e2e # or `npm run test:e2e:ci` for headless testing
+yarn build
+yarn test:e2e # or `yarn test:e2e:ci` for headless testing
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
-npm run lint
+yarn lint
 ```
+
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+
+[![Visualization of the codebase](./diagram.svg)](https://mango-dune-07a8b7110.1.azurestaticapps.net/?repo=IonianPlayboy%2Fgithub-repo-structure)
