@@ -1,0 +1,65 @@
+// Vitest Snapshot v1
+
+exports[`AlertUi > accepts a title and a text content 1`] = `
+"<div class=\\"from-blue-900/50 to-sky-900/50 rounded-md bg-gradient-to-r p-4 shadow-md\\" data-testid=\\"alert\\">
+  <div class=\\"flex\\">
+    <div class=\\"shrink-0\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 20 20\\" fill=\\"currentColor\\" aria-hidden=\\"true\\" class=\\"text-blue-400 h-5 w-5\\">
+        <path fill-rule=\\"evenodd\\" d=\\"M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z\\" clip-rule=\\"evenodd\\"></path>
+      </svg></div>
+    <div class=\\"ml-3\\">
+      <h3 class=\\"text-blue-200 text-sm font-medium\\">Title !</h3>
+      <div class=\\"text-blue-300 mt-2 text-sm\\">
+        <p>Hello this is text.</p>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`AlertUi > changes its styling according to its type 1`] = `
+"<div class=\\"from-blue-900/50 to-sky-900/50 rounded-md bg-gradient-to-r p-4 shadow-md\\" data-testid=\\"alert\\">
+  <div class=\\"flex\\">
+    <div class=\\"shrink-0\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 20 20\\" fill=\\"currentColor\\" aria-hidden=\\"true\\" class=\\"text-blue-400 h-5 w-5\\">
+        <path fill-rule=\\"evenodd\\" d=\\"M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z\\" clip-rule=\\"evenodd\\"></path>
+      </svg></div>
+    <div class=\\"ml-3\\">
+      <h3 class=\\"text-blue-200 text-sm font-medium\\"></h3>
+      <div class=\\"text-blue-300 mt-2 text-sm\\">
+        <p>Hello bis</p>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`AlertUi > changes its styling according to its type 2`] = `
+"<div class=\\"from-red-900/50 to-rose-900/50 rounded-md bg-gradient-to-r p-4 shadow-md\\" data-testid=\\"alert\\">
+  <div class=\\"flex\\">
+    <div class=\\"shrink-0\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 20 20\\" fill=\\"currentColor\\" aria-hidden=\\"true\\" class=\\"text-red-400 h-5 w-5\\">
+        <path fill-rule=\\"evenodd\\" d=\\"M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z\\" clip-rule=\\"evenodd\\"></path>
+      </svg></div>
+    <div class=\\"ml-3\\">
+      <h3 class=\\"text-red-200 text-sm font-medium\\"></h3>
+      <div class=\\"text-red-300 mt-2 text-sm\\">
+        <p>Hello</p>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`AlertUi > renders properly 1`] = `
+"<div class=\\"from-blue-900/50 to-sky-900/50 rounded-md bg-gradient-to-r p-4 shadow-md\\" data-testid=\\"alert\\">
+  <div class=\\"flex\\">
+    <div class=\\"shrink-0\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 20 20\\" fill=\\"currentColor\\" aria-hidden=\\"true\\" class=\\"text-blue-400 h-5 w-5\\">
+        <path fill-rule=\\"evenodd\\" d=\\"M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z\\" clip-rule=\\"evenodd\\"></path>
+      </svg></div>
+    <div class=\\"ml-3\\">
+      <h3 class=\\"text-blue-200 text-sm font-medium\\"></h3>
+      <div class=\\"text-blue-300 mt-2 text-sm\\">
+        <p>Hello</p>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
