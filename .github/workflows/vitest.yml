@@ -1,0 +1,12 @@
+name: Vitests Tests
+
+on: push
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v2
+            - name: Vitest run tests
+              run: yarn && yarn test:unit:ci
