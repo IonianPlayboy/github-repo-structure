@@ -1,6 +1,6 @@
 // https://docs.cypress.io/api/introduction/api.html
 
-describe("Repository page with files tree", () => {
+describe("Repository page with single file", () => {
 	beforeEach(() => {
 		cy.intercept(`/repos/testOwner/testRepo/contents/*`, {
 			fixture: "file",
@@ -17,10 +17,14 @@ describe("Repository page with files tree", () => {
 	it("allows to scroll back to top", () => {
 		cy.get('[data-testid="repositoryNav"]').should("be.visible");
 		cy.get("[data-testid=buttonSecondary]").should("not.exist");
+
 		cy.scrollTo("bottom");
+		cy.wait(500);
+		cy.get("[data-testid=buttonSecondary]")
+			.should("exist")
+			.and("have.attr", "href", "#");
 
-		cy.get("[data-testid=buttonSecondary]").should("exist").click();
-
+		cy.scrollTo("top");
 		cy.get("[data-testid=repositoryNav]").should("be.visible");
 		cy.get("[data-testid=buttonSecondary]").should("not.exist");
 	});
