@@ -2,6 +2,7 @@
 	<div
 		:class="colorStylesPerType[type].bg"
 		class="rounded-md bg-gradient-to-r p-4 shadow-md"
+		data-testid="alert"
 	>
 		<div class="flex">
 			<div class="shrink-0">
