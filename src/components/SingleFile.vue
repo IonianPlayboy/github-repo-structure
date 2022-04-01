@@ -16,10 +16,12 @@
 		v-else-if="currHTML"
 		v-html="currHTML"
 		class="overflow-auto rounded bg-[#22272e] px-8 py-4 text-sm shadow md:text-base"
+		data-testid="fileHtml"
 	></div>
 	<div
 		class="overflow-auto whitespace-pre rounded bg-[#22272e] px-8 py-4 font-mono text-sm shadow md:text-base"
 		v-else
+		data-testid="fileText"
 	>
 		{{ currText }}
 	</div>

@@ -1,0 +1,18 @@
+{
+	"name": ".gitignore",
+	"path": ".gitignore",
+	"sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+	"size": 0,
+	"url": "https://api.github.com/repos/IonianPlayboy/tailwind-colors/contents/.gitignore?ref=dev",
+	"html_url": "https://github.com/IonianPlayboy/tailwind-colors/blob/dev/.gitignore",
+	"git_url": "https://api.github.com/repos/IonianPlayboy/tailwind-colors/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+	"download_url": "https://raw.githubusercontent.com/IonianPlayboy/tailwind-colors/dev/.gitignore",
+	"type": "file",
+	"content": "",
+	"encoding": "base64",
+	"_links": {
+		"self": "https://api.github.com/repos/IonianPlayboy/tailwind-colors/contents/.gitignore?ref=dev",
+		"git": "https://api.github.com/repos/IonianPlayboy/tailwind-colors/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+		"html": "https://github.com/IonianPlayboy/tailwind-colors/blob/dev/.gitignore"
+	}
+}
