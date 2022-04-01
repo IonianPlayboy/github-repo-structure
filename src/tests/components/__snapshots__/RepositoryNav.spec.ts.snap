@@ -1,0 +1,19 @@
+// Vitest Snapshot v1
+
+exports[`RepositoryNav > only shows one link when no path is set 1`] = `"<h3 class=\\"flex flex-wrap items-end whitespace-nowrap border-b border-slate-700 px-4 py-5 text-xl font-medium leading-6 text-gray-100 sm:px-6\\" data-testid=\\"repositoryNav\\"><a href=\\"/repos/testOwner/testRepo\\" data-testid=\\"repository-root\\"><span class=\\"text-primary\\">testOwner</span><span class=\\"mx-1 text-primary-dark\\"> / </span><span class=\\"animate-gradient from-teal-300 via-indigo-500 to-primary-lighter bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent\\">testRepo</span></a></h3>"`;
+
+exports[`RepositoryNav > renders properly 1`] = `"<h3 class=\\"flex flex-wrap items-end whitespace-nowrap border-b border-slate-700 px-4 py-5 text-xl font-medium leading-6 text-gray-100 sm:px-6\\" data-testid=\\"repositoryNav\\"><a href=\\"/repos/aa/aa\\" data-testid=\\"repository-root\\"><span class=\\"text-primary\\">aa</span><span class=\\"mx-1 text-primary-dark\\"> / </span><span class=\\"animate-gradient from-teal-300 via-indigo-500 to-primary-lighter bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent\\">aa</span></a></h3>"`;
+
+exports[`RepositoryNav > shows one link per node when a path is set 1`] = `
+"<h3 class=\\"flex flex-wrap items-end whitespace-nowrap border-b border-slate-700 px-4 py-5 text-xl font-medium leading-6 text-gray-100 sm:px-6\\" data-testid=\\"repositoryNav\\"><a href=\\"/repos/testOwner/testRepo\\" data-testid=\\"repository-root\\"><span class=\\"text-primary\\">testOwner</span><span class=\\"mx-1 text-primary-dark\\"> / </span><span class=\\"from-primary-light to-primary-dark bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent\\">testRepo</span></a><svg xmlns=\\"http://www.w3.org/2000/svg\\" fill=\\"none\\" viewBox=\\"0 0 24 24\\" stroke-width=\\"2\\" stroke=\\"currentColor\\" aria-hidden=\\"true\\" class=\\"h-5 w-5 text-primary\\">
+    <path stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\" d=\\"M9 5l7 7-7 7\\"></path>
+  </svg><a href=\\"/repos/testOwner/testRepo/testPath\\" class=\\"animate-gradient from-teal-300 via-indigo-500 to-primary-lighter bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent\\" data-testid=\\"repository-testPath\\">testPath</a></h3>"
+`;
+
+exports[`RepositoryNav > shows one link per node when a path is set 2`] = `
+"<h3 class=\\"flex flex-wrap items-end whitespace-nowrap border-b border-slate-700 px-4 py-5 text-xl font-medium leading-6 text-gray-100 sm:px-6\\" data-testid=\\"repositoryNav\\"><a href=\\"/repos/testOwner/testRepo\\" data-testid=\\"repository-root\\"><span class=\\"text-primary\\">testOwner</span><span class=\\"mx-1 text-primary-dark\\"> / </span><span class=\\"from-primary-light to-primary-dark bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent\\">testRepo</span></a><svg xmlns=\\"http://www.w3.org/2000/svg\\" fill=\\"none\\" viewBox=\\"0 0 24 24\\" stroke-width=\\"2\\" stroke=\\"currentColor\\" aria-hidden=\\"true\\" class=\\"h-5 w-5 text-primary\\">
+    <path stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\" d=\\"M9 5l7 7-7 7\\"></path>
+  </svg><a href=\\"/repos/testOwner/testRepo/test\\" class=\\"from-primary-light to-primary-dark bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent\\" data-testid=\\"repository-test\\">test</a><svg xmlns=\\"http://www.w3.org/2000/svg\\" fill=\\"none\\" viewBox=\\"0 0 24 24\\" stroke-width=\\"2\\" stroke=\\"currentColor\\" aria-hidden=\\"true\\" class=\\"h-5 w-5 text-primary\\">
+    <path stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\" d=\\"M9 5l7 7-7 7\\"></path>
+  </svg><a href=\\"/repos/testOwner/testRepo/test/path\\" class=\\"animate-gradient from-teal-300 via-indigo-500 to-primary-lighter bg-gradient-to-r bg-[length:400%_400%] bg-clip-text text-transparent\\" data-testid=\\"repository-path\\">path</a></h3>"
+`;
